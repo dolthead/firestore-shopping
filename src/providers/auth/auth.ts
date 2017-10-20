@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {
   AngularFirestore,
-  AngularFirestoreDocument,
   AngularFirestoreCollection
 } from 'angularfire2/firestore';
 import firebase from 'firebase/app';
-import { Observable } from 'rxjs';
 import { userProfile } from '../../models/user-profile';
 import { teamProfile } from '../../models/team-profile';
 
