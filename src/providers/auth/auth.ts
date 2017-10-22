@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {
   AngularFirestore,
-  AngularFirestoreCollection
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
 } from 'angularfire2/firestore';
 import firebase from 'firebase/app';
 import { userProfile } from '../../models/user-profile';
@@ -28,24 +29,25 @@ export class AuthProvider {
       password
     );
 
-    const userProfileCollection: AngularFirestoreCollection<
+    const userProfileCollection: AngularFirestoreDocument<
       userProfile
-    > = this.fireStore.collection(`userProfile`);
+    > = this.fireStore.doc(`userProfile/${adminUser.uid}`);
 
-    userProfileCollection.add({
+    userProfileCollection.set({
       id: adminUser.uid,
       email: email,
       teamId: adminUser.uid,
       teamAdmin: true
     });
 
-    const teamProfile: AngularFirestoreCollection<
+    const teamProfile: AngularFirestoreDocument<
       teamProfile
-    > = this.fireStore.collection(`teamProfile`);
+    > = this.fireStore.doc(`teamProfile/${adminUser.uid}`);
 
-    teamProfile.add({
+    teamProfile.set({
       id: adminUser.uid,
-      teamAdmin: adminUser.uid
+      teamAdmin: adminUser.uid,
+      groceryList: null
     });
 
     return adminUser;

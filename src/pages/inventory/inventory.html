@@ -14,5 +14,21 @@
 
 
 <ion-content padding>
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="addGrocery()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 
+  <ion-list>
+    <ion-item *ngFor="let grocery of groceryList | async">
+      <h2>
+        {{ grocery.name }}
+      </h2>
+      <h3>
+        There {{ grocery.quantity > 1 ? "are" : "is" }}
+        <strong>{{ grocery.quantity }} {{ grocery.units }}</strong>
+      </h3>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -4,6 +4,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
+import { InventoryPage } from '../pages/inventory/inventory';
+import { ShoppingListPage } from '../pages/shopping-list/shopping-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,23 +15,25 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { firebaseConfig } from './credentials';
+import { InventoryProvider } from '../providers/inventory/inventory';
 
 @NgModule({
-  declarations: [MyApp, TabsPage],
+  declarations: [MyApp, TabsPage, InventoryPage, ShoppingListPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule.enablePersistence()
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, TabsPage],
+  entryComponents: [MyApp, TabsPage, InventoryPage, ShoppingListPage],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthProvider
+    AuthProvider,
+    InventoryProvider
   ]
 })
 export class AppModule {}

@@ -1,25 +1,30 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+import { InventoryProvider } from '../../providers/inventory/inventory';
+import { Grocery } from '../../models/grocery';
+import { Observable } from 'rxjs';
 
-/**
- * Generated class for the InventoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
 @Component({
   selector: 'page-inventory',
-  templateUrl: 'inventory.html',
+  templateUrl: 'inventory.html'
 })
 export class InventoryPage {
+  groceryList: Observable<Grocery[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController,
+    public inventoryProvider: InventoryProvider
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InventoryPage');
+    this.inventoryProvider.getTeamId().then(teamId => {
+      this.groceryList = this.inventoryProvider
+        .getGroceryList(teamId)
+        .valueChanges();
+    });
   }
 
+  addGrocery(): void {
+    this.navCtrl.push('InventoryAddPage');
+  }
 }
