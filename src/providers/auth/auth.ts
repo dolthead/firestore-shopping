@@ -21,8 +21,7 @@ export class AuthProvider {
 
   async createAdminUser(
     email: string,
-    password: string,
-    teamName: string
+    password: string
   ): Promise<firebase.User> {
     const adminUser: firebase.User = await this.afAuth.auth.createUserWithEmailAndPassword(
       email,
@@ -36,7 +35,8 @@ export class AuthProvider {
     userProfileCollection.add({
       id: adminUser.uid,
       email: email,
-      teamId: adminUser.uid
+      teamId: adminUser.uid,
+      teamAdmin: true
     });
 
     const teamProfile: AngularFirestoreCollection<
@@ -45,8 +45,7 @@ export class AuthProvider {
 
     teamProfile.add({
       id: adminUser.uid,
-      teamAdmin: adminUser.uid,
-      teamName: teamName
+      teamAdmin: adminUser.uid
     });
 
     return adminUser;
