@@ -44,18 +44,17 @@ export class InventoryProvider {
   }
 
   getGroceryList(teamId: string): AngularFirestoreCollection<Grocery> {
-    return this.fireStore.collection<Grocery>(
-      `/teamProfile/${teamId}/groceryList`
-    );
+    return this.fireStore.collection<
+      Grocery
+    >(`/teamProfile/${teamId}/groceryList`, ref => ref.orderBy('quantity'));
   }
 
-  async addGrocery(
+  addGrocery(
     name: string,
     quantity: number,
-    units: string
+    units: string,
+    teamId: string
   ): Promise<void> {
-    const teamId: string = await this.getTeamId();
-    console.log(teamId);
     const groceryId: string = this.fireStore.createId();
 
     return this.fireStore
