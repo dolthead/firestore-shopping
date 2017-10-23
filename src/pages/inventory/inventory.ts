@@ -50,7 +50,11 @@ export class InventoryPage {
           text: 'Add',
           handler: data => {
             const quantity: number = parseFloat(data.quantity);
-            this.inventoryProvider.addGrocery(groceryId, quantity, teamId);
+            this.inventoryProvider.addGroceryQuantity(
+              groceryId,
+              quantity,
+              teamId
+            );
           }
         }
       ]
@@ -79,7 +83,11 @@ export class InventoryPage {
           text: 'Take Out',
           handler: data => {
             const quantity: number = parseFloat(data.quantity);
-            this.inventoryProvider.removeGrocery(groceryId, quantity, teamId);
+            this.inventoryProvider.removeGroceryQuantity(
+              groceryId,
+              quantity,
+              teamId
+            );
           }
         }
       ]

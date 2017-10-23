@@ -54,7 +54,7 @@ export class InventoryProvider {
       .set({ id: groceryId, name, quantity, units, teamId });
   }
 
-  addGrocery(
+  addGroceryQuantity(
     groceryId: string,
     quantity: number,
     teamId: string
@@ -71,7 +71,7 @@ export class InventoryProvider {
     });
   }
 
-  removeGrocery(
+  removeGroceryQuantity(
     groceryId: string,
     quantity: number,
     teamId: string
