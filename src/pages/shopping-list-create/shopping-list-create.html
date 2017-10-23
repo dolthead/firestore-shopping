@@ -1,0 +1,21 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Create a Shopping List</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="createShoppingListForm" (submit)="createShoppingList()" novalidate>
+    <ion-item>
+      <ion-label stacked>When are you going shopping?</ion-label>
+      <ion-datetime formControlName="date" displayFormat="MMM D, YYYY" pickerFormat="D MMM YYYY"></ion-datetime>
+    </ion-item>
+
+    <button ion-button block type="submit" [disabled]="!createShoppingListForm.valid">
+      Create ShoppingList
+    </button>
+  </form>
+</ion-content>

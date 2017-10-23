@@ -11,4 +11,8 @@ export class ShoppingListPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShoppingListPage');
   }
+
+  createShoppingList(): void {
+    this.navCtrl.push('ShoppingListCreatePage');
+  }
 }
