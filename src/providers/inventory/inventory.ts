@@ -26,14 +26,6 @@ export class InventoryProvider {
     });
   }
 
-  /**
-  * What do I need to do?
-  * Create a new grocery.
-  * Enter a detail view for a grocery
-  * Add groceries to inventory
-  * Remove groceries from inventory
-  */
-
   async getTeamId(): Promise<string> {
     const userProfile: firebase.firestore.DocumentSnapshot = await firebase
       .firestore()
@@ -49,7 +41,7 @@ export class InventoryProvider {
     >(`/teamProfile/${teamId}/groceryList`, ref => ref.orderBy('quantity'));
   }
 
-  addGrocery(
+  createGrocery(
     name: string,
     quantity: number,
     units: string,
@@ -59,6 +51,40 @@ export class InventoryProvider {
 
     return this.fireStore
       .doc<Grocery>(`/teamProfile/${teamId}/groceryList/${groceryId}`)
-      .set({ id: groceryId, name, quantity, units });
+      .set({ id: groceryId, name, quantity, units, teamId });
+  }
+
+  addGrocery(
+    groceryId: string,
+    quantity: number,
+    teamId: string
+  ): Promise<void> {
+    const groceryRef = this.fireStore.doc(
+      `/teamProfile/${teamId}/groceryList/${groceryId}`
+    ).ref;
+
+    return this.fireStore.firestore.runTransaction(transaction => {
+      return transaction.get(groceryRef).then(groceryDoc => {
+        const newQuantity: number = groceryDoc.data().quantity + quantity;
+        transaction.update(groceryRef, { quantity: newQuantity });
+      });
+    });
+  }
+
+  removeGrocery(
+    groceryId: string,
+    quantity: number,
+    teamId: string
+  ): Promise<void> {
+    const groceryRef = this.fireStore.doc(
+      `/teamProfile/${teamId}/groceryList/${groceryId}`
+    ).ref;
+
+    return this.fireStore.firestore.runTransaction(transaction => {
+      return transaction.get(groceryRef).then(groceryDoc => {
+        const newQuantity: number = groceryDoc.data().quantity - quantity;
+        transaction.update(groceryRef, { quantity: newQuantity });
+      });
+    });
   }
 }

@@ -3,4 +3,5 @@ export interface Grocery {
   name: string;
   quantity: number;
   units: string;
+  teamId: string;
 }

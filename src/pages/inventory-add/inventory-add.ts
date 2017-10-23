@@ -52,7 +52,7 @@ export class InventoryAddPage {
       const units: string = this.addGroceryForm.value.units;
 
       try {
-        await this.inventoryProvider.addGrocery(
+        await this.inventoryProvider.createGrocery(
           name,
           quantity,
           units,
