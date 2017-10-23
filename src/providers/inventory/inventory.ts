@@ -2,14 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import {
   AngularFirestore,
-  AngularFirestoreDocument,
   AngularFirestoreCollection
 } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 import { Grocery } from '../../models/grocery';
-
-// import { userProfile } from '../../models/user-profile';
-// import { Observable } from 'rxjs';
 
 @Injectable()
 export class InventoryProvider {
