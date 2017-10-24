@@ -33,6 +33,6 @@ export class ShoppingListPage {
   }
 
   addSingleGrocery(): void {
-    console.log('Adding Groceries');
+    this.navCtrl.push('InventoryAddPage', {inShoppingList: true});
   }
 }

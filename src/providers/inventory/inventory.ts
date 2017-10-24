@@ -52,7 +52,8 @@ export class InventoryProvider {
     name: string,
     quantity: number,
     units: string,
-    teamId: string
+    teamId: string,
+    inShoppingList: boolean = false
   ): Promise<void> {
     const groceryId: string = this.fireStore.createId();
 
@@ -64,7 +65,7 @@ export class InventoryProvider {
         quantity,
         units,
         teamId,
-        inShoppingList: false
+        inShoppingList
       });
   }
 

@@ -5,7 +5,8 @@ import {
   IonicPage,
   Loading,
   LoadingController,
-  NavController
+  NavController,
+  NavParams
 } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InventoryProvider } from '../../providers/inventory/inventory';
@@ -21,6 +22,7 @@ export class InventoryAddPage {
 
   constructor(
     public navCtrl: NavController,
+    public navParams: NavParams,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public inventoryProvider: InventoryProvider,
@@ -50,13 +52,15 @@ export class InventoryAddPage {
       const name: string = this.addGroceryForm.value.name;
       const quantity: number = parseFloat(this.addGroceryForm.value.quantity);
       const units: string = this.addGroceryForm.value.units;
+      const inShoppingList: boolean = this.navParams.get('inShoppingList');
 
       try {
         await this.inventoryProvider.createGrocery(
           name,
           quantity,
           units,
-          this.teamId
+          this.teamId,
+          inShoppingList
         );
         await loading.dismiss();
         this.navCtrl.pop();
