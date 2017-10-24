@@ -18,7 +18,7 @@
       <p>You need to enter its name.</p>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="!inShoppingList">
       <ion-label stacked>How many?</ion-label>
       <ion-input formControlName="quantity" type="number" placeholder="How many are you adding?">
       </ion-input>

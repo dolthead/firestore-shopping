@@ -17,6 +17,7 @@ import { InventoryProvider } from '../../providers/inventory/inventory';
   templateUrl: 'inventory-add.html'
 })
 export class InventoryAddPage {
+  inShoppingList: boolean;
   addGroceryForm: FormGroup;
   teamId: string;
 
@@ -28,6 +29,7 @@ export class InventoryAddPage {
     public inventoryProvider: InventoryProvider,
     formBuilder: FormBuilder
   ) {
+    this.inShoppingList = this.navParams.get('inShoppingList');
     this.addGroceryForm = formBuilder.group({
       name: ['', Validators.compose([Validators.required])],
       quantity: [0, Validators.compose([Validators.required])],
@@ -52,7 +54,6 @@ export class InventoryAddPage {
       const name: string = this.addGroceryForm.value.name;
       const quantity: number = parseFloat(this.addGroceryForm.value.quantity);
       const units: string = this.addGroceryForm.value.units;
-      const inShoppingList: boolean = this.navParams.get('inShoppingList');
 
       try {
         await this.inventoryProvider.createGrocery(
@@ -60,7 +61,7 @@ export class InventoryAddPage {
           quantity,
           units,
           this.teamId,
-          inShoppingList
+          this.inShoppingList
         );
         await loading.dismiss();
         this.navCtrl.pop();
