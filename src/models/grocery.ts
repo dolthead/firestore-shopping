@@ -4,4 +4,5 @@ export interface Grocery {
   quantity: number;
   units: string;
   teamId: string;
+  inShoppingList: boolean;
 }

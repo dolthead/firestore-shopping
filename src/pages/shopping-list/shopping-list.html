@@ -9,9 +9,26 @@
 
 <ion-content padding>
   <ion-fab right bottom>
-    <button ion-fab color="primary" (click)="createShoppingList()">
+    <button ion-fab color="primary">
       <ion-icon name="add"></ion-icon>
     </button>
+    <ion-fab-list side="top">
+      <button ion-fab color="primary" (click)="addSingleGrocery()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <button ion-fab color="primary" (click)="addBulkGroceries()">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-fab-list>
   </ion-fab>
+
+  <ion-list>
+    <ion-item *ngFor="let grocery of groceryList | async">
+      {{ grocery.name }}
+      <button ion-button item-end (click)="pickQuantity(grocery.id)">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

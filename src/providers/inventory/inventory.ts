@@ -37,6 +37,17 @@ export class InventoryProvider {
     >(`/teamProfile/${teamId}/groceryList`, ref => ref.orderBy('quantity'));
   }
 
+  getGroceryListForShoppingList(
+    teamId: string,
+    isInShoppingList: boolean
+  ): AngularFirestoreCollection<Grocery> {
+    return this.fireStore.collection<
+      Grocery
+    >(`/teamProfile/${teamId}/groceryList`, ref =>
+      ref.where('inShoppingList', '==', isInShoppingList)
+    );
+  }
+
   createGrocery(
     name: string,
     quantity: number,
@@ -47,7 +58,14 @@ export class InventoryProvider {
 
     return this.fireStore
       .doc<Grocery>(`/teamProfile/${teamId}/groceryList/${groceryId}`)
-      .set({ id: groceryId, name, quantity, units, teamId });
+      .set({
+        id: groceryId,
+        name,
+        quantity,
+        units,
+        teamId,
+        inShoppingList: false
+      });
   }
 
   addGroceryQuantity(
@@ -81,6 +99,16 @@ export class InventoryProvider {
         const newQuantity: number = groceryDoc.data().quantity - quantity;
         transaction.update(groceryRef, { quantity: newQuantity });
       });
+    });
+  }
+
+  addGroceryToShoppingList(groceryId: string, teamId: string): Promise<void> {
+    const groceryRef = this.fireStore.doc(
+      `/teamProfile/${teamId}/groceryList/${groceryId}`
+    );
+
+    return groceryRef.update({
+      inShoppingList: true
     });
   }
 }

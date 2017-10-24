@@ -1,25 +1,31 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the ShoppingListAddPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { InventoryProvider } from '../../providers/inventory/inventory';
+import { Observable } from 'rxjs';
+import { Grocery } from '../../models/grocery';
 
 @IonicPage()
 @Component({
   selector: 'page-shopping-list-add',
-  templateUrl: 'shopping-list-add.html',
+  templateUrl: 'shopping-list-add.html'
 })
 export class ShoppingListAddPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  groceryList: Observable<Grocery[]>;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public inventoryProvider: InventoryProvider
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ShoppingListAddPage');
+    this.inventoryProvider.getTeamId().then(teamId => {
+      this.groceryList = this.inventoryProvider
+        .getGroceryListForShoppingList(teamId, false)
+        .valueChanges();
+    });
   }
 
+  async addGrocery(groceryId: string, teamId: string): Promise<void> {
+    this.inventoryProvider.addGroceryToShoppingList(groceryId, teamId);
+  }
 }

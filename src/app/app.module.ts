@@ -16,7 +16,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { firebaseConfig } from './credentials';
 import { InventoryProvider } from '../providers/inventory/inventory';
-import { ShoppingListProvider } from '../providers/shopping-list/shopping-list';
 
 @NgModule({
   declarations: [MyApp, TabsPage, InventoryPage, ShoppingListPage],
@@ -34,8 +33,7 @@ import { ShoppingListProvider } from '../providers/shopping-list/shopping-list';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
-    InventoryProvider,
-    ShoppingListProvider
+    InventoryProvider
   ]
 })
 export class AppModule {}
