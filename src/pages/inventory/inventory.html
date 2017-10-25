@@ -2,6 +2,11 @@
 
   <ion-navbar color="primary">
     <ion-title>Inventory</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addUser()">
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -15,6 +20,9 @@
   </ion-fab>
 
   <ion-list>
+    <ion-list-header>
+      My Home's Inventory
+    </ion-list-header>
     <ion-item *ngFor="let grocery of groceryList | async">
       <h2>
         {{ grocery.name }}

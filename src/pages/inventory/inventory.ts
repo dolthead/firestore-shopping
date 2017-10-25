@@ -25,6 +25,10 @@ export class InventoryPage {
     });
   }
 
+  addUser(): void {
+    this.navCtrl.push('AddUserPage');
+  }
+
   createGrocery(): void {
     this.navCtrl.push('InventoryAddPage');
   }
