@@ -24,7 +24,7 @@ import { InventoryProvider } from '../providers/inventory/inventory';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule.enablePersistence()
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, TabsPage, InventoryPage, ShoppingListPage],
